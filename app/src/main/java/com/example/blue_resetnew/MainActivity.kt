@@ -33,6 +33,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
 import kotlinx.coroutines.*
+import android.widget.TextView
 
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +55,11 @@ class MainActivity : AppCompatActivity() {
     private var datasave2 = ArrayList<Float>()
     private var datasave3 = ArrayList<Float>()
 
+    private lateinit var textView1: TextView
+    private lateinit var textView2: TextView
+    private lateinit var textView3: TextView
+    private lateinit var textView4: TextView
+
     private var bluetoothSocket: BluetoothSocket? = null
     private var connectedThread: BluetoothServer.ConnectedThread? = null
 
@@ -65,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     private var bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     private var bluetoothServer = BluetoothServer(bluetoothAdapter)
 
-
+    var count = 0
 
     // valueformatter로 바꿔서 에러 가능성있음;
     private var xAxisValueFormatter: ValueFormatter = object : DefaultAxisValueFormatter(0) {
@@ -337,6 +343,7 @@ class MainActivity : AppCompatActivity() {
             private val unwrapedVitalSignList = mutableListOf<Float>()
             private val filteredBreathSignList = mutableListOf<Float>()
             private val filteredHeartSignList = mutableListOf<Float>()
+            var floatArray = floatArrayOf()
 
             override fun run() {
                 // Call the suspend version of the function from the overridden run() function
@@ -353,7 +360,7 @@ class MainActivity : AppCompatActivity() {
                     while (true) {
                         bytesRead = inputStream.read(buffer)
                         if (bytesRead == -1) break
-                        val message = String(buffer, 0, bytesRead)
+                        //val message = String(buffer, 0, bytesRead)
                         val byteArrayOutputStream = ByteArrayOutputStream()
                         byteArrayOutputStream.write(buffer)
                         seperatedData(byteArrayOutputStream)
@@ -366,6 +373,33 @@ class MainActivity : AppCompatActivity() {
                             )
                             withContext(Dispatchers.Main) {
                                 updateChart(data)
+                                count ++
+                                if (count == 500) {
+                                    textView1 = findViewById(R.id.TVBR)
+                                    textView2 = findViewById(R.id.TBHR)
+                                    textView3 = findViewById(R.id.TVB)
+                                    textView4 = findViewById(R.id.TVDM)
+
+                                    textView1.setText(floatArray[3].toInt().toString())
+                                    textView2.setText(floatArray[4].toInt().toString())
+                                    if (floatArray[5].toInt() == 1) {
+                                        textView3.setText("ON")
+                                        textView3.setTextColor(Color.BLUE)
+                                    }
+                                    else {
+                                        textView3.setText("OFF")
+                                        textView3.setTextColor(Color.RED)
+                                    }
+                                    if (floatArray[6].toInt() == 1) {
+                                        textView4.setText("ON")
+                                        textView4.setTextColor(Color.BLUE)
+                                    }
+                                    else {
+                                        textView4.setText("OFF")
+                                        textView4.setTextColor(Color.RED)
+                                    }
+                                    count = 0
+                                }
                             }
                         }
                     }
@@ -384,23 +418,23 @@ class MainActivity : AppCompatActivity() {
             fun seperatedData(VitalData : ByteArrayOutputStream){
                 var dataByteArray = VitalData.toByteArray()
                 var tt: ByteArray = dataByteArray
-                var length = tt.size
+                //var length = tt.size
                 var num_count = 20
-                var buffapend_count = 0
-                var buffer = ByteBuffer.wrap(tt,20,40) // create a ByteBuffer starting at index 50 with a length of 15 bytes
-                var builder = StringBuilder()
+                //var buffapend_count = 0
+                var buffer : ByteBuffer
+                //var buffer = ByteBuffer.wrap(tt,20,40) // create a ByteBuffer starting at index 50 with a length of 15 bytes
+                //var builder = StringBuilder()
 
                 while(num_count<100) {
                     try {
                         buffer = ByteBuffer.wrap(tt, num_count, num_count + 28).order(ByteOrder.LITTLE_ENDIAN)
                         num_count = num_count + 28
-                        buffapend_count = 0
-                        val floatArray = floatArrayOf(
+                        floatArray = floatArrayOf(
                             buffer.float, buffer.float, buffer.float,
                             buffer.float, buffer.float, buffer.float, buffer.float
                         )
                         val result = floatArray.joinToString(separator = ", ")
-                        Log.d(TAG, "Received message: $result")
+                        //Log.d(TAG, "Received message: $result")
 
                         setUnwrappedVitalSign(floatArray[0], floatArray[1], floatArray[2])
                     } catch (e: IOException){

@@ -3,6 +3,106 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="#2d93ed"
+            android:textColor="#ffffff"
+            android:text=" Breath rate" />
+
+        <TextView
+            android:id="@+id/TVBR"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:text="" />
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="#2d93ed"
+            android:textColor="#ffffff"
+            android:text=" Heart rate" />
+
+        <TextView
+            android:id="@+id/TBHR"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:text="" />
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="#2d93ed"
+            android:textColor="#ffffff"
+            android:text=" Breathing" />
+
+        <TextView
+            android:id="@+id/TVB"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:text="" />
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="#2d93ed"
+            android:textColor="#ffffff"
+            android:text=" Detect movement" />
+
+        <TextView
+            android:id="@+id/TVDM"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:text="" />
+    </LinearLayout>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart1"
@@ -13,7 +113,7 @@
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart2"
         android:layout_width="match_parent"
-        android:layout_height="243dp" />
+        android:layout_height="210dp" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart3"
